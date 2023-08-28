@@ -1,4 +1,3 @@
-import datetime
 import os
 
 import pygame
@@ -19,16 +18,19 @@ class PGT:
 
         self.current_key = ""
         self.movement_keys = {
-            "up": (0, 1),
-            "down": (0, -1),
-            "left": (-1, 0),
-            "right": (1, 0)
+            "up": "up",
+            "down": "down",
+            "left": 'left',
+            "right": "right"
         }
         self.sprites = []
         self.bg_color = "white"
 
     def set_background_color(self, color):
         self.bg_color = color
+
+    def add_sprite(self, sprite):
+        self.sprites.append(sprite)
 
     def create_sprite(self, image_name, x_pos, y_pos, speed, is_controlled, game_class):
         new_sprite = Sprite()
@@ -44,16 +46,16 @@ class PGT:
         self.current_key = key
 
     def set_up_key(self, key):
-        self.movement_keys[0] = key
+        self.movement_keys["up"] = key
 
     def set_down_key(self, key):
-        self.movement_keys[1] = key
+        self.movement_keys["down"] = key
 
     def set_left_key(self, key):
-        self.movement_keys[2] = key
+        self.movement_keys["left"] = key
 
     def set_right_key(self, key):
-        self.movement_keys[3] = key
+        self.movement_keys["right"] = key
 
     def repaint(self):
         self.screen.fill(self.bg_color)
@@ -77,6 +79,11 @@ class Sprite:
     gameClass: PGT
 
     def check_move(self, key):
-        if key in self.gameClass.movement_keys:
-            self.xPos += self.gameClass.movement_keys[key][0] * self.speed
-            self.yPos += self.gameClass.movement_keys[key][1] * -self.speed
+        if key in self.gameClass.movement_keys.values():
+            for k, value in self.gameClass.movement_keys.items():
+                if value == key:
+                    match k:
+                        case "up": self.yPos -= self.speed
+                        case "down": self.yPos += self.speed
+                        case "left": self.xPos -= self.speed
+                        case "right": self.xPos += self.speed
