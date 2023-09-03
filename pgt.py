@@ -64,8 +64,10 @@ class PGT:
             if sprite.isControlled:
                 sprite.check_move(self.current_key)
 
-            self.screen.blit(pygame.image.load(os.path.join("textures\\" + sprite.image + ".png")),
-                             (sprite.xPos, sprite.yPos))
+            # Add try/catch
+            self.screen.blit(pygame.image.load(os.path.join("assets\\" + sprite.image + ".png")),
+                         (sprite.xPos, sprite.yPos))
+
 
         pg.display.flip()
 

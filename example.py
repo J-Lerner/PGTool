@@ -33,14 +33,14 @@ game.add_sprite(player_sprite)
 # Main loop
 running = True
 
+# * IMPORTANT *
+# Directly copy everything in this loop that has a *
 while running:
-    # * IMPORTANT *
-    # Directly copy everything in this loop
-    pg = game.pygame
-    game.repaint()
+    pg = game.pygame  # *
+    game.repaint()  # *
 
-    for event in pg.event.get():
+    for event in pg.event.get():  # *
         if event.type == pg.QUIT:
             quit()
 
-    game.set_current_key(keyboard.read_key())
+    game.set_current_key(keyboard.read_key())  # *
